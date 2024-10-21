@@ -27,7 +27,7 @@ func logOutput(logCh chan string, secretValues []string) {
 
 func sanitizeString(s string, secretValues []string) string {
 	newString := s
-	for _, secret := range secretValues {
+	for _, secret := range secretValues { //pragma: allowlist secret
 		replacement := strings.Repeat("*", len(s))
 		newString = strings.ReplaceAll(newString, secret, replacement)
 	}

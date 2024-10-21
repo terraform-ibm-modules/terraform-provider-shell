@@ -1,7 +1,18 @@
+terraform {
+  required_version = ">= 1.3.0"
+
+  required_providers {
+    shell = {
+      source  = "scottwinkler/shell"
+      version = ">= 1.7.10"
+    }
+  }
+}
+
 provider "shell" {}
 
 
-//test complete data resource 
+# test complete data resource
 data "shell_script" "test" {
   lifecycle_commands {
     read = <<EOF
@@ -10,11 +21,8 @@ data "shell_script" "test" {
   }
 }
 
-output "commit_id" {
-  value = data.shell_script.test.output["commit_id"]
-}
 
-//test resource with no read or update
+# test resource with no read or update
 resource "shell_script" "test2" {
   lifecycle_commands {
     create = <<EOF
@@ -31,7 +39,7 @@ resource "shell_script" "test2" {
   }
 }
 
-//test resource with no update
+# test resource with no update
 resource "shell_script" "test3" {
   lifecycle_commands {
     create = <<EOF
@@ -50,7 +58,7 @@ resource "shell_script" "test3" {
   }
 }
 
-//test resource with no read
+# test resource with no read
 resource "shell_script" "test4" {
   lifecycle_commands {
     create = <<EOF
@@ -74,7 +82,7 @@ resource "shell_script" "test4" {
   }
 }
 
-//test complete resource
+# test complete resource
 resource "shell_script" "test5" {
   lifecycle_commands {
     create = file("${path.module}/scripts/create.sh")
@@ -83,7 +91,7 @@ resource "shell_script" "test5" {
     delete = file("${path.module}/scripts/delete.sh")
   }
 
-  working_directory = "${path.module}"
+  working_directory = path.module
 
   environment = {
     yolo = "yolo"
@@ -91,11 +99,8 @@ resource "shell_script" "test5" {
   }
 }
 
-output "commit_id2" {
-  value = shell_script.test5.output["commit_id"]
-}
 
-//resource with triggers
+# resource with triggers
 resource "shell_script" "test6" {
   lifecycle_commands {
     create = file("${path.module}/scripts/create.sh")
@@ -103,7 +108,7 @@ resource "shell_script" "test6" {
     delete = file("${path.module}/scripts/delete.sh")
   }
 
-  working_directory = "${path.module}"
+  working_directory = path.module
 
   environment = {
     yolo = "yolo"

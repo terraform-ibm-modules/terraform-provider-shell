@@ -6,4 +6,4 @@ IN=$(cat)
 echo "stdin: ${IN}" #the old state
 
 #business logic
-cat ${filename}
+cat "${filename}"

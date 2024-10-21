@@ -1,5 +1,13 @@
-variable "oauth_token" {
-  type = string
+
+terraform {
+  required_version = ">= 1.3.0"
+
+  required_providers {
+    shell = {
+      source  = "scottwinkler/shell"
+      version = ">= 1.7.10"
+    }
+  }
 }
 
 provider "shell" {
