@@ -49,13 +49,13 @@ resource "shell_script" "github_repository" {
 		DESCRIPTION = "description"
 	}
 
-	
+
 	//sensitive environment variables are exactly the
 	//same as environment variables except they don't
 	//show up in log files
 	sensitive_environment = {
 		USERNAME = var.username
-		PASSWORD = var.password
+		PASSWORD = var.password //pragma: allowlist secret
 	}
 
 	//this overrides the provider supplied interpreter
@@ -82,4 +82,3 @@ output "id" {
 The following arguments are supported:
 
 * `output` - A map of outputs
-

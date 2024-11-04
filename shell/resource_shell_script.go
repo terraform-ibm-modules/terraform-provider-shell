@@ -97,7 +97,7 @@ func resourceShellScript() *schema.Resource {
 	}
 }
 
-//helpers to unwravel the recursive bits by adding a base condition
+// helpers to unwravel the recursive bits by adding a base condition
 func resourceShellScriptCreate(d *schema.ResourceData, meta interface{}) error {
 	return create(d, meta, []Action{ActionCreate})
 }
@@ -419,7 +419,7 @@ func delete(d *schema.ResourceData, meta interface{}, stack []Action) error {
 	return nil
 }
 
-//Action is an enum for CRUD operations
+// Action is an enum for CRUD operations
 type Action string
 
 const (

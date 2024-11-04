@@ -1,16 +1,22 @@
 
+terraform {
+  required_version = ">= 1.3.0"
+
+  required_providers {
+    shell = {
+      source  = "scottwinkler/shell"
+      version = ">= 1.7.10"
+    }
+  }
+}
 
 # runs the "whoami" command and returns user
 data "shell_script" "user" {
-    lifecycle_commands {
-        read = <<-EOF
+  lifecycle_commands {
+    read = <<-EOF
             echo "{\"user\": \"$(whoami)\"}"
         EOF
-    }
-}
-
-output "user" {
-    value = data.shell_script.user.output["user"]
+  }
 }
 
 # gets the weather as a data source
@@ -22,10 +28,6 @@ data "shell_script" "weather" {
   }
 }
 
-output "data_weather" {
-  value = data.shell_script.weather.output["SanFrancisco"]
-}
-
 # gets the weather as a resource
 resource "shell_script" "weather" {
   lifecycle_commands {
@@ -35,8 +37,4 @@ resource "shell_script" "weather" {
         EOF
     delete = "rm state.json"
   }
-}
-
-output "weather" {
-  value = shell_script.weather.output["London"]
 }
